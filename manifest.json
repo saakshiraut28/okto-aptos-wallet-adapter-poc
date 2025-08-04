@@ -1,30 +1,37 @@
 {
   "manifest_version": 3,
-  "name": "okto-wallet",
-  "version": "1.0",
-  "description": "Okto Wallet POC for Aptos",
+  "name": "Okto Wallet Adapter",
+  "version": "1.0.0",
+  "description": "Connect to Aptos dApps with your wallet",
+  "permissions": [
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-script.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["dist/inpage.js"],
+      "matches": ["<all_urls>"],
+      "use_dynamic_url": true
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Okto Wallet"
+  },
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
-  },
-  "action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "16": "icons/icon16.png",
-      "48": "icons/icon48.png",
-      "128": "icons/icon128.png"
-    }
-  },
-  "permissions": [
-    "storage"
-  ],
-  "host_permissions": [],
-  "content_scripts": [
-    {
-      "matches": [],
-      "js": [],
-      "run_at": "document_idle"
-    }
-  ]
+  }
 }

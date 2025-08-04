@@ -1,0 +1,14 @@
+{
+  "name": "okto-aptos-extension",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@aptos-labs/wallet-standard": "^0.5.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.0",
+    "vite": "^5.2.8"
+  }
+}

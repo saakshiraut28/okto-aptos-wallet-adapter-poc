@@ -1,17 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>okto-wallet</title>
-  <style>
-    body {
-      width: 300px;
-      padding: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aptos Wallet</title>
+    <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <h2>Okto Wallet</h2>
-  <div id="extensionDiv"></div>
-  <script src="popup.js"></script>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🅰️</div>
+            <h1 class="title">Aptos Wallet</h1>
+        </div>
+        
+        <div class="content">
+            <div id="main-view">
+                <div class="status disconnected" id="status">
+                    <div>Not Connected</div>
+                </div>
+                
+                <div class="account-info" id="account-info" style="display: none;">
+                    <div class="balance" id="balance">0 APT</div>
+                    <div class="network" id="network">Mainnet</div>
+                    <div class="account-address" id="address"></div>
+                </div>
+                
+                <div class="actions">
+                    <button class="btn btn-primary" id="connect-btn">Connect Wallet</button>
+                </div>
+            </div>
+            
+            <div id="connect-view" style="display: none;">
+                <div class="pending-request">
+                    <h3>Connection Request</h3>
+                    <p>A dApp is requesting to connect to your wallet.</p>
+                    <div class="actions">
+                        <button class="btn btn-primary" id="approve-connect">Approve</button>
+                        <button class="btn btn-secondary" id="reject-connect">Reject</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="sign-view" style="display: none;">
+                <div class="pending-request">
+                    <h3>Signature Request</h3>
+                    <p id="sign-message">Please review and approve this signature request.</p>
+                    <div class="request-details" id="sign-details"></div>
+                    <div class="actions">
+                        <button class="btn btn-primary" id="approve-sign">Sign</button>
+                        <button class="btn btn-secondary" id="reject-sign">Reject</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div>Aptos Wallet Extension v1.0.0</div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
 </body>
 </html>
