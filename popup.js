@@ -55,9 +55,8 @@ function showSignView(signType) {
 
   const signMessage = document.getElementById("sign-message");
   if (signMessage) {
-    signMessage.textContent = `Approve this ${
-      signType || "transaction"
-    } signature request.`;
+    signMessage.textContent = `Approve this ${signType || "transaction"
+      } signature request.`;
   }
 }
 
@@ -127,6 +126,12 @@ function setupEventListeners() {
   const settingsBtn = document.getElementById("settings-btn");
   if (settingsBtn) {
     settingsBtn.addEventListener("click", handleSettingsClick);
+  }
+
+  // Copy address button
+  const copyAddressBtn = document.getElementById("copy-address");
+  if (copyAddressBtn) {
+    copyAddressBtn.addEventListener("click", handleCopyAddress);
   }
 }
 
@@ -207,6 +212,31 @@ function handleSettingsClick() {
   // Open settings view or new tab
   console.log("Settings clicked");
   // You could implement a settings page here
+}
+
+async function handleCopyAddress() {
+  try {
+    const result = await chrome.storage.local.get(["currentAccount"]);
+    if (result.currentAccount && result.currentAccount.address) {
+      await navigator.clipboard.writeText(result.currentAccount.address);
+
+      // Update button text temporarily to show success
+      const copyBtn = document.getElementById("copy-address");
+      const originalText = copyBtn.textContent;
+      copyBtn.textContent = "✓";
+      copyBtn.style.background = "rgba(0, 212, 170, 0.3)";
+
+      setTimeout(() => {
+        copyBtn.textContent = originalText;
+        copyBtn.style.background = "rgba(255, 255, 255, 0.1)";
+      }, 1000);
+
+      showNotification("Address copied to clipboard!", "success");
+    }
+  } catch (error) {
+    console.error("Failed to copy address:", error);
+    showNotification("Failed to copy address", "error");
+  }
 }
 
 function showNotification(message, type = "info") {
